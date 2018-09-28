@@ -13,7 +13,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 
-<rfc category="std" docName="draft-ietf-oauth-resource-indicators-00"
+<rfc category="std" docName="draft-ietf-oauth-resource-indicators-01"
      ipr="trust200902">
   <front>
     <title abbrev="OAuth Resource Indicators">Resource Indicators for OAuth 2.0</title>
@@ -358,6 +358,14 @@
       <t>
 	[[ to be removed by the RFC Editor before publication as an RFC ]]
       </t>
+      <t>
+        -01
+        <list style='symbols'>
+          <t>
+           
+          </t>
+        </list>
+      </t>	    
       <t>
         -00
         <list style='symbols'>
