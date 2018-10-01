@@ -1,5 +1,5 @@
-# Resource Indicators (or Prameters or something) for OAuth 2.0
-This is the working area for the IETF OAUTH WG's draft Resource Indicators (or Prameters or something) for OAuth 2.0
+# Resource Indicators (or Parameters or something) for OAuth 2.0
+This is the working area for the IETF OAUTH WG's draft Resource Indicators (or Parameters or something) for OAuth 2.0
 
 Be aware that all contributions to the specification fall under the "NOTE WELL"
 terms outlined below.
