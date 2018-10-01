@@ -138,7 +138,7 @@
         OPTIONAL. The value of the
         <spanx style="verb">resource</spanx>
         parameter indicates a resource server where the requested access token will be used. It MUST be an
-        absolute URI, as specified by Section 4.3 of<xref target="RFC3986"/>,
+        absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         and MUST NOT include a query or fragment component.  If the authorization server fails to parse the
         provided value or does not consider the resource server acceptable, it MUST reject the request and
         provide an error response with the error code <spanx style="verb">invalid_resource</spanx>. Multiple
