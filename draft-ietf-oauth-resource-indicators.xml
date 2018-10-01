@@ -324,16 +324,6 @@
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7519.xml' ?>
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6750.xml' ?>
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7644.xml' ?>
-
-      <reference anchor="I-D.draft-tschofenig-oauth-audience">
-        <front>
-          <title>OAuth 2.0: Audience Information</title>
-          <author fullname="Hannes Tschofenig" initials="H" surname="Tschofenig"/>
-          <date month="February" year="2013"/>
-        </front>
-        <seriesInfo value="draft-tschofenig-oauth-audience" name="Internet-Draft"/>
-        <format target="https://tools.ietf.org/html/draft-tschofenig-oauth-audience-00" type="HTML" />
-      </reference>
     </references>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
@@ -359,18 +349,41 @@
 	[[ to be removed by the RFC Editor before publication as an RFC ]]
       </t>
       <t>
-        -01
+        draft-ietf-oauth-resource-indicators-01
         <list style='symbols'>
-          <t>
-           
-          </t>
+          <t>Editorial fixes.</t>
         </list>
       </t>	    
       <t>
-        -00
+        draft-ietf-oauth-resource-indicators-00
         <list style='symbols'>
           <t>
             First version of the working group document. A replica of draft-campbell-oauth-resource-indicators-02.
+          </t>
+        </list>
+      </t>
+      <t>
+        draft-campbell-oauth-resource-indicators-02
+        <list style='symbols'>
+          <t>No changes.</t>
+        </list>
+      </t>
+      <t>
+        draft-campbell-oauth-resource-indicators-01
+        <list style='symbols'>
+          <t>
+            Move Hannes Tschofenig, who wrote https://tools.ietf.org/html/draft-tschofenig-oauth-audience in '13, from Acknowledgements to Authors.
+          </t>
+          <t>
+            Added IANA Considerations to register the "resource" parameter and "invalid_resource" error code.
+          </t>
+        </list>
+      </t>
+      <t>
+        draft-campbell-oauth-resource-indicators-00
+        <list style='symbols'>
+          <t>
+            Initial draft to define a resource parameter for OAuth 2.0.
           </t>
         </list>
       </t>
