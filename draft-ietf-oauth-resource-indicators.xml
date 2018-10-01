@@ -327,21 +327,30 @@
     </references>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The following individuals contributed to discussions relating to and giving rise to this draft specification:</t>
       <t>
-        George Fletcher,
-        Hans Zandbelt,
-        Justin Richer,
-        Michael Jones,
-        Nat Sakimura,
-        Phil Hunt,
+        This specification was developed within the OAuth Working Group
+        under the chairmanship of Hannes Tschofenig
+        and Rifaat Shekh-Yusef with Eric Rescorla and Ben K
+        serving as Security Area Directors.  Additionally, the following
+        individuals contributed ideas, feedback, and wording
+        that helped shape this specification:</t>
+      <t>
         Sergey Beryozkin,
+        William Denniss,
+        George Fletcher,
+        Dick Hardt,
+        Phil Hunt,
+        Michael Jones,
+        Torsten Lodderstedt,
+        Anthony Nadalin,
+        Justin Richer,
+        Nat Sakimura,
+        Filip Skokan,
         and
-        Anthony "no go" Nadalin.
+        Hans Zandbelt.
       </t>
 
     </section>
-
 
     <section anchor="History" title="Document History">
       <?rfc subcompact="yes"?>
@@ -351,7 +360,8 @@
       <t>
         draft-ietf-oauth-resource-indicators-01
         <list style='symbols'>
-          <t>Editorial fixes.</t>
+          <t>Editorial stuff.</t>
+          <t>Rework the Acknowledgements section.</t>
         </list>
       </t>	    
       <t>
