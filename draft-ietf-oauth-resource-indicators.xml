@@ -65,7 +65,7 @@
   as necessary for that entity. Properly encrypting the token (or content within the token) to a particular resource server, for example,
   requires knowing which resource server will receive and decrypt the token. Furthermore, various resource servers oftentimes have
   different requirements with respect to the data contained in, or referenced by, the token and knowing the resource server
-  where the client intends to use the                                                 s
+  where the client intends to use the
   token allows the the authorization server to mint the token accordingly.
 </t>
 <t>
