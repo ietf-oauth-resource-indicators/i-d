@@ -141,8 +141,8 @@
         parameter indicates a resource server where the requested access token will be used. It MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         and MUST NOT include a query or fragment component.  If the authorization server fails to parse the
-        provided value or does not consider the resource server acceptable, it MUST reject the request and
-        provide an error response with the error code <spanx style="verb">invalid_resource</spanx>. Multiple
+        provided value or does not consider the resource server acceptable, it SHOULD reject the request and
+        provide an error response with the error code <spanx style="verb">invalid_target</spanx>. Multiple
         <spanx style="verb">resource</spanx>
         parameters may be used to indicate
         that the issued token is intended to be used at multiple resource servers.
@@ -258,8 +258,10 @@
           <t>
             <?rfc subcompact="yes"?>
             <list style='symbols'>
-              <t>Error name: invalid_resource</t>
-              <t>Error usage location: implicit grant error response, token error response</t>
+              <t>Error name: invalid_target</t>
+              <t>Error usage location: implicit grant error response, token error response
+                [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token error response'
+                and this draft needs to either update that registration or somehow do a partial registration and reference]]</t>
               <t>Related protocol extension: resource parameter</t>
               <t>Change controller: IESG</t>
               <t>Specification document(s): <xref target="ResourceParameter"/> of [[ this specification ]]</t>
@@ -366,6 +368,7 @@
           <t>Editorial updates.</t>
           <t>Rework the Acknowledgements section.</t>
           <t>Use RFC 8174 boilerplate.</t>
+          <t>Change the "invalid_resource" error to "invalid_target" to alight with draft-ietf-oauth-token-exchange, which has some overlap in functionality.</t>
         </list>
       </t>	    
       <t>
