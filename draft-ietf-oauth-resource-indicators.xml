@@ -220,6 +220,38 @@
       </t>
     </section>
 
+    <section anchor="Security" title="Security Considerations">
+      <t>
+        An access token that is audience restricted to a resource server, which obtains the
+        token legitimately, cannot be used to access resources on behalf of the
+        resource owner at other resource servers. The <spanx style="verb">resource</spanx>
+        parameter enables a client to indicate the resource server where the requested access
+        token will be used, which in turn enables the authorization server to apply the
+        appropriate audience restrictions to the token.
+      </t>
+      <t>
+        Some Resource servers may host user content or be multi-tenant. In order to avoid attacks that might
+        confuse a client into sending a AT to a user controlled resource it is important to use the a specific
+        resource URI including path and not use just a host with no path. This will cause any AT issued for
+        accessing the user controlled resource to have a invalid audience if replayed against the legitimate
+        resource API.
+      </t>
+      <t>
+        Although multiple occurrences of the <spanx style="verb">resource</spanx> parameter
+        may be included in a request, using only a single <spanx style="verb">resource</spanx> parameter
+        is encouraged. A bearer token that has multiple intended recipients (audiences) can be used by
+        any one of those recipients at any other. Thus, a high degree of trust between the involved parties
+        is needed when using access tokens with multiple audiences. Furthermore an authorization server may
+        be unwilling or unable to fulfill a token request with multiple resources.
+      </t>
+      <t>
+        [[TODO: I continue to question the value of allowing multiple resources vs the functional and security
+        complexity that comes with doing so. Writing the preceding paragraph just underscores that concern. So
+        just noting it here.]]
+      </t>
+    </section>
+
+
     <section anchor="IANA" title="IANA Considerations">
 
       <section anchor="OAuthParametersReg" title="OAuth Parameters Registration">
@@ -272,36 +304,6 @@
 
     </section>
 
-    <section anchor="Security" title="Security Considerations">
-      <t>
-        An access token that is audience restricted to a resource server, which obtains the
-        token legitimately, cannot be used to access resources on behalf of the
-        resource owner at other resource servers. The <spanx style="verb">resource</spanx>
-        parameter enables a client to indicate the resource server where the requested access
-        token will be used, which in turn enables the authorization server to apply the
-        appropriate audience restrictions to the token.
-      </t>
-      <t>
-        Some Resource servers may host user content or be multi-tenant. In order to avoid attacks that might
-        confuse a client into sending a AT to a user controlled resource it is important to use the a specific
-        resource URI including path and not use just a host with no path. This will cause any AT issued for
-        accessing the user controlled resource to have a invalid audience if replayed against the legitimate
-        resource API.
-      </t>
-      <t>
-        Although multiple occurrences of the <spanx style="verb">resource</spanx> parameter
-        may be included in a request, using only a single <spanx style="verb">resource</spanx> parameter
-        is encouraged. A bearer token that has multiple intended recipients (audiences) can be used by
-        any one of those recipients at any other. Thus, a high degree of trust between the involved parties
-        is needed when using access tokens with multiple audiences. Furthermore an authorization server may
-        be unwilling or unable to fulfill a token request with multiple resources.
-      </t>
-      <t>
-        [[TODO: I continue to question the value of allowing multiple resources vs the functional and security
-        complexity that comes with doing so. Writing the preceding paragraph just underscores that concern. So
-        just noting it here.]]
-      </t>
-    </section>
   </middle>
 
   <back>
@@ -370,6 +372,7 @@
           <t>Use RFC 8174 boilerplate.</t>
           <t>Change the "invalid_resource" error to "invalid_target" to alight with draft-ietf-oauth-token-exchange, which has some overlap in functionality.</t>
           <t>Allow the "resource" parameter value to have a query component.</t>
+          <t>Moved the Security Considerations section to before the IANA Considerations.</t>
         </list>
       </t>	    
       <t>
