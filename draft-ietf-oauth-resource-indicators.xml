@@ -183,7 +183,7 @@
 ]]></artwork>
 </figure>
       <t>
-        The <spanx style="verb">resource</spanx> parameter indicates the physical location of resource server, typically as an https URL,
+        The <spanx style="verb">resource</spanx> parameter indicates the location of resource server, typically as an https URL,
         where the client intends to use
         the requested access token. This enables the authorization server to apply policy as appropriate
         for the resource, such as determining the type and content of the token to be issued, if and how
