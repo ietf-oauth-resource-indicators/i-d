@@ -264,7 +264,9 @@
             <?rfc subcompact="yes"?>
             <list style='symbols'>
               <t>Parameter name: resource</t>
-              <t>Parameter usage location: authorization request, token request</t>
+              <t>Parameter usage location: authorization request, token request
+                [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token request'
+                and this draft needs to somehow either update that registration or do a partial registration and reference]]</t>
               <t>Change controller: IESG</t>
               <t>Specification document(s): <xref target="ResourceParameter"/> of [[ this specification ]]</t>
             </list>
@@ -288,7 +290,7 @@
               <t>Error name: invalid_target</t>
               <t>Error usage location: implicit grant error response, token error response
                 [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token error response'
-                and this draft needs to either update that registration or somehow do a partial registration and reference]]</t>
+                and this draft needs to somehow either update that registration or do a partial registration and reference]]</t>
               <t>Related protocol extension: resource parameter</t>
               <t>Change controller: IESG</t>
               <t>Specification document(s): <xref target="ResourceParameter"/> of [[ this specification ]]</t>
