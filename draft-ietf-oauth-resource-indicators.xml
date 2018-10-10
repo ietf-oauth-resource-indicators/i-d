@@ -13,8 +13,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 
-<rfc category="std" docName="draft-ietf-oauth-resource-indicators-01"
-     ipr="trust200902">
+<rfc category="std" docName="draft-ietf-oauth-resource-indicators-01" ipr="trust200902">
   <front>
     <title abbrev="OAuth Resource Indicators">Resource Indicators for OAuth 2.0</title>
 
@@ -32,7 +31,6 @@
       <organization>Arm Limited</organization>
       <address><email>hannes.tschofenig@gmx.net</email></address>
     </author>
-
 
     <date />
 
@@ -310,7 +308,6 @@
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6749.xml' ?>
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml' ?>
 
-
       <reference anchor="IANA.OAuth.Parameters" target="http://www.iana.org/assignments/oauth-parameters">
         <front>
           <title>OAuth Parameters</title>
@@ -354,7 +351,6 @@
         and
         Hans Zandbelt.
       </t>
-
     </section>
 
     <section anchor="History" title="Document History">
