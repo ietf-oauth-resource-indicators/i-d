@@ -244,11 +244,6 @@
         is needed when using access tokens with multiple audiences. Furthermore an authorization server may
         be unwilling or unable to fulfill a token request with multiple resources.
       </t>
-      <t>
-        [[TODO: I continue to question the value of allowing multiple resources vs the functional and security
-        complexity that comes with doing so. Writing the preceding paragraph just underscores that concern. So
-        just noting it here.]]
-      </t>
     </section>
 
 
