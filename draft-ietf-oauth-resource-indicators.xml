@@ -365,6 +365,7 @@
         <list style='symbols'>
           <t>Editorial updates.</t>
           <t>Rework the Acknowledgements section.</t>
+          <t>Use RFC 8174 boilerplate.</t>
         </list>
       </t>	    
       <t>
