@@ -59,10 +59,10 @@
   it intends to use the access token it is requesting.
 </t>
 <t>
-  Knowing which resource server will process the access token enables the authorization server to construct the token
-  as necessary for that entity. Properly encrypting the token (or content within the token) to a particular resource server, for example,
-  requires knowing which resource server will receive and decrypt the token. Furthermore, various resource servers oftentimes have
-  different requirements with respect to the data contained in, or referenced by, the token and knowing the resource server
+  Knowing the protected resource (a.k.a. resource server, application, API, etc.) that will process the access token enables the authorization server to construct the token
+  as necessary for that entity. Properly encrypting the token (or content within the token) to a particular resource, for example,
+  requires knowing which resource will receive and decrypt the token. Furthermore, various resources oftentimes have
+  different requirements with respect to the data contained in, or referenced by, the token and knowing the resource
   where the client intends to use the
   token allows the the authorization server to mint the token accordingly.
 </t>
@@ -74,15 +74,15 @@
   To prevent misuse, two important security assumptions must hold:
   bearer tokens must be protected from disclosure in storage and in
   transit and the access token must only be valid for use at a
-  specific resource server and for a specific scope.  When the authorization server is informed of
-  the resource server that will process the access token, it can restrict the intended audience of that token
-  such that it cannot be used at other resource servers.
+  specific protected resource and for a specific scope.  When the authorization server is informed of
+  the resource that will process the access token, it can restrict the intended audience of that token
+  such that it cannot be used at other resources.
   <xref target="RFC6750">Section 5.2 of OAuth 2.0 Authorization Framework: Bearer Token Usage</xref>
   prescribes including the token's intended recipients within the token to prevent token redirect.
 </t>
 <t>
   Scope, from Section 3.3 of <xref target="RFC6749">OAuth 2.0</xref>, sometimes is overloaded to convey the
-  location or identity of the resource server, however, doing so isn't always feasible or desirable. Scope is
+  location or identity of the protected resource, however, doing so isn't always feasible or desirable. Scope is
   typically about what access is being requested rather than where that access will be redeemed
   (e.g. <spanx style="verb">email</spanx>, <spanx style="verb">user:follow</spanx>, <spanx style="verb">user_photos</spanx>,
   and <spanx style="verb">channels:read</spanx> are a small sample of scope values in use).
@@ -126,7 +126,7 @@
 
     <section anchor="ResourceParameter" title="Resource Parameter">
       <t>
-        The client may indicate the resource server(s) for which it is requesting an access token by
+        The client may indicate the protected resource(s) for which it is requesting an access token by
         including the following parameter in the request.
       </t>
       <t>
@@ -136,14 +136,14 @@
         <vspace/>
         OPTIONAL. The value of the
         <spanx style="verb">resource</spanx>
-        parameter indicates a resource server where the requested access token will be used. It MUST be an
+        parameter indicates a resource where the requested access token will be used. It MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         which MAY include a query component but MUST NOT include a fragment component. If the authorization server fails to parse the
-        provided value or does not consider the resource server acceptable, it SHOULD reject the request and
+        provided value or does not consider the resource acceptable, it SHOULD reject the request and
         provide an error response with the error code <spanx style="verb">invalid_target</spanx>. Multiple
         <spanx style="verb">resource</spanx>
         parameters may be used to indicate
-        that the issued token is intended to be used at multiple resource servers.
+        that the issued token is intended to be used at multiple resources.
       </t>
       </list>
       </t>
@@ -181,7 +181,7 @@
 ]]></artwork>
 </figure>
       <t>
-        The <spanx style="verb">resource</spanx> parameter indicates the location of resource server, typically as an https URL,
+        The <spanx style="verb">resource</spanx> parameter indicates the location of a protected resource, typically as an https URL,
         where the client intends to use
         the requested access token. This enables the authorization server to apply policy as appropriate
         for the resource, such as determining the type and content of the token to be issued, if and how
@@ -189,28 +189,28 @@
       </t>
       <t>
         The client SHOULD provide the most specific URI that it can for the set of resources or API it intends to access.
-        In practice a client will know a base URI for the resource server application that it interacts with, which
+        In practice a client will know a base URI for the resource or application that it interacts with, which
         is appropriate to use as the value of the <spanx style="verb">resource</spanx> parameter.
-        The client SHOULD use the base URI for the API unless specific knowledge of resource server
+        The client SHOULD use the base URI for the API unless specific knowledge of the resource
         dictates the client use a shorter path.
         For example, the value <spanx style="verb">https://rs.example.com/</spanx> would be used
-        for a resource server that is the exclusive application on that host, however,
-        if the resource server is one of many applications on that host, something like
+        for a resource that is the exclusive application on that host, however,
+        if the resource is one of many applications on that host, something like
         <spanx style="verb">https://rs.example.com/application/</spanx> would be used.
         Another example, for an API like <xref target="RFC7644">SCIM</xref> that has multiple endpoints such as
         <spanx style="verb">https://rs.example.com/scim/Users</spanx>,
         <spanx style="verb">https://rs.example.com/scim/Groups</spanx>, and
         <spanx style="verb">https://rs.example.com/scim/Schemas</spanx>
-        The client should use <spanx style="verb">https://rs.example.com/scim/</spanx> as the resource
+        The client would use <spanx style="verb">https://rs.example.com/scim/</spanx> as the resource
         so that the issued access token is valid for all the endpoints of the SCIM API.
       </t>
       <t>
         The authorization server SHOULD audience restrict the access token to the
-        resource server(s) indicated by the <spanx style="verb">resource</spanx> parameter.
+        resource(s) indicated by the <spanx style="verb">resource</spanx> parameter.
         Audience restrictions can be communicated in <xref target="RFC7519">JSON Web Tokens</xref> with the <spanx style="verb">aud</spanx> claim
         and the top-level member of the same name provides the audience restriction information in a <xref target="RFC7662">Token Introspection</xref> response.
         The authorization server may use the exact <spanx style="verb">resource</spanx> value as the audience or it may map from that value to a more
-        general URI or abstract identifier for the resource server.
+        general URI or abstract identifier for the resource.
       </t>
       <t>
         The requested resource pertains to the access token that is the expected result of the request and
@@ -220,17 +220,18 @@
 
     <section anchor="Security" title="Security Considerations">
       <t>
-        An access token that is audience restricted to a resource server, which obtains the
+        An access token that is audience restricted to a protected resource, which obtains the
         token legitimately, cannot be used to access resources on behalf of the
-        resource owner at other resource servers. The <spanx style="verb">resource</spanx>
-        parameter enables a client to indicate the resource server where the requested access
+        resource owner at other protected resources. The <spanx style="verb">resource</spanx>
+        parameter enables a client to indicate the protected resources where the requested access
         token will be used, which in turn enables the authorization server to apply the
         appropriate audience restrictions to the token.
       </t>
       <t>
-        Some Resource servers may host user content or be multi-tenant. In order to avoid attacks that might
-        confuse a client into sending a AT to a user controlled resource it is important to use the a specific
-        resource URI including path and not use just a host with no path. This will cause any AT issued for
+        Some servers may host user content or be multi-tenant. In order to avoid attacks that might
+        confuse a client into sending a AT to a resource that is user controlled or is owned by a different tenant,
+        it is important to use a specific
+        resource URI including a path component. This will cause any AT issued for
         accessing the user controlled resource to have a invalid audience if replayed against the legitimate
         resource API.
       </t>
