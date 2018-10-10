@@ -44,9 +44,9 @@
 
     <abstract>
       <t>
-        This straw-man specification defines an extension to The OAuth 2.0
-        Authorization Framework that enables the client and authorization
-        server to more explicitly to communicate about the protected
+        An extension to The OAuth 2.0
+        Authorization Framework defining request parameters that enable a client
+        to explicitly signal to an authorization server about the location of the protected
         resource(s) to be accessed.
       </t>
     </abstract>
@@ -57,7 +57,7 @@
     <section anchor="Introduction" title="Introduction">
 <t>
   Several years of deployment and implementation experience with <xref target="RFC6749">OAuth 2.0</xref>
-  has uncovered a need, in some circumstances, for the client to explicitly signal to the authorization sever where
+  has uncovered a need, in some circumstances, for the client to explicitly signal to the authorization server where
   it intends to use the access token it is requesting.
 </t>
 <t>
@@ -90,7 +90,7 @@
   and <spanx style="verb">channels:read</spanx> are a small sample of scope values in use).
 </t>
 <t>
-  A means for the client to signal to the authorization sever where it intends to use the access token it's requesting
+  A means for the client to signal to the authorization server where it intends to use the access token it's requesting
   is important and useful. A number of implementations and deployments of OAuth 2.0 have already employed proprietary parameters
   toward that end.
   This specification aims to provide a standardized and interoperable alternative to the proprietary approaches going forward.
@@ -360,7 +360,7 @@
       <t>
         draft-ietf-oauth-resource-indicators-01
         <list style='symbols'>
-          <t>Editorial stuff.</t>
+          <t>Editorial updates.</t>
           <t>Rework the Acknowledgements section.</t>
         </list>
       </t>	    
