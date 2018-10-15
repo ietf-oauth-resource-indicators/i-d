@@ -69,16 +69,16 @@
 <t>
   Specific knowledge of the intended recipient(s) of the access token also helps facilitate improved
   security characteristics of the token itself.
-  Bearer tokens, currently the only defined type of OAuth access token,
+  Bearer tokens, currently the most commonly utilized type of OAuth access token,
   allow any party in possession of a token to get access to the associated resources.
-  To prevent misuse, two important security assumptions must hold:
-  bearer tokens must be protected from disclosure in storage and in
-  transit and the access token must only be valid for use at a
-  specific protected resource and for a specific scope.  When the authorization server is informed of
-  the resource that will process the access token, it can restrict the intended audience of that token
-  such that it cannot be used at other resources.
-  <xref target="RFC6750">Section 5.2 of OAuth 2.0 Authorization Framework: Bearer Token Usage</xref>
+  To prevent misuse, several important security assumptions must hold, one of which is that
+  an access token must only be valid for use at a
+  specific protected resource and for a specific scope of access.
+  Section 5.2 of <xref target="RFC6750"/>, for example,
   prescribes including the token's intended recipients within the token to prevent token redirect.
+  When the authorization server is informed of
+  the resource that will process the access token, it can restrict the intended audience of that token
+  to the given resource such that the token cannot be used successfully at other resources.
 </t>
 <t>
   Scope, from Section 3.3 of <xref target="RFC6749">OAuth 2.0</xref>, sometimes is overloaded to convey the
