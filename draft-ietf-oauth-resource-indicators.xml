@@ -135,16 +135,15 @@
 
       <t hangText="resource">
         <vspace/>
-        OPTIONAL. The value of the
-        <spanx style="verb">resource</spanx>
-        parameter indicates a resource where the requested access token will be used. It MUST be an
+        Indicates the location of the target service or
+        resource where where the requested access token will be used
+        Its value MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
-        which MAY include a query component but MUST NOT include a fragment component. If the authorization server fails to parse the
-        provided value or does not consider the resource acceptable, it SHOULD reject the request and
-        provide an error response with the error code <spanx style="verb">invalid_target</spanx>. Multiple
+        which MAY include a query component but MUST NOT include a fragment component.
+        Multiple
         <spanx style="verb">resource</spanx>
         parameters may be used to indicate
-        that the issued token is intended to be used at multiple resources.
+        that the requested token is intended to be used at multiple resources.
       </t>
       </list>
       </t>
@@ -152,9 +151,9 @@
         When an access token will be returned from the authorization endpoint, the <spanx style="verb">resource</spanx>
         parameter is used in the authorization request to the authorization endpoint as defined in Section 4.2.1 of <xref target="RFC6749">OAuth 2.0</xref>.
         An example of an authorization request where the client tells the authorization server that it wants a token for use at
-        <spanx style="verb">https://rs.example.com/</spanx> is shown in <xref target="authz-endpoint"/> below.
+        <spanx style="verb">https://rs.example.com/</spanx> is shown in <xref target="authz-endpoint-example"/> below.
       </t>
-<figure title="Protected Resource Request" anchor="authz-endpoint">
+<figure title="Authorization Request" anchor="authz-endpoint-example">
 <artwork><![CDATA[
   GET /as/authorization.oauth2?response_type=token
      &client_id=s6BhdRkqt3&state=laeb
@@ -167,9 +166,9 @@
         When the access token is returned from the token endpoint, the request parameter is included in the token request to the token endpoint.
         Sections 4.1.1, 4.3.1, 4.4.2, 4.5 and 6 of <xref target="RFC6749">OAuth 2.0</xref> define requests to the token endpoint with different grant types.
         An example of a token request, using a refresh token, where the client tells the authorization server that it wants a token for use at
-        <spanx style="verb">https://rs.example.com/</spanx> is shown in <xref target="token-endpoint"/> below.
+        <spanx style="verb">https://rs.example.com/</spanx> is shown in <xref target="token-endpoint-example"/> below.
       </t>
-<figure title="Protected Resource Request" anchor="token-endpoint">
+<figure title="Access Token Request" anchor="token-endpoint-example">
 <artwork><![CDATA[
   POST /as/token.oauth2 HTTP/1.1
   Host: authorization-server.example.com
