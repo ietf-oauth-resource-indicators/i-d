@@ -367,8 +367,8 @@
           <t>Editorial updates.</t>
           <t>Rework the Acknowledgements section.</t>
           <t>Use RFC 8174 boilerplate.</t>
-          <t>Change the "invalid_resource" error to "invalid_target" to alight with draft-ietf-oauth-token-exchange, which has some overlap in functionality.</t>
-          <t>Allow the "resource" parameter value to have a query component.</t>
+          <t>Change the "invalid_resource" error to "invalid_target" to align with draft-ietf-oauth-token-exchange, which has some overlap in functionality.</t>
+          <t>Allow the "resource" parameter value to have a query component (aligning with draft-ietf-oauth-token-exchange).</t>
           <t>Moved the Security Considerations section to before the IANA Considerations.</t>
         </list>
       </t>	    
