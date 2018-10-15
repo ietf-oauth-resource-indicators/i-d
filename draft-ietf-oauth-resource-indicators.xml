@@ -81,11 +81,12 @@
   to the given resource such that the token cannot be used successfully at other resources.
 </t>
 <t>
-  Scope, from Section 3.3 of <xref target="RFC6749">OAuth 2.0</xref>, sometimes is overloaded to convey the
+  OAuth scope, from Section 3.3 of <xref target="RFC6749"/>, is sometimes overloaded to convey the
   location or identity of the protected resource, however, doing so isn't always feasible or desirable. Scope is
   typically about what access is being requested rather than where that access will be redeemed
-  (e.g. <spanx style="verb">email</spanx>, <spanx style="verb">user:follow</spanx>, <spanx style="verb">user_photos</spanx>,
-  and <spanx style="verb">channels:read</spanx> are a small sample of scope values in use).
+  (e.g. <spanx style="verb">email</spanx>, <spanx style="verb">admin:org</spanx>, <spanx style="verb">user_photos</spanx>,
+  <spanx style="verb">channels:read</spanx>, and <spanx style="verb">channels:write</spanx> are a small sample of scope
+  values in use that convey only the type of access).
 </t>
 <t>
   A means for the client to signal to the authorization server where it intends to use the access token it's requesting
