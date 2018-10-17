@@ -54,7 +54,7 @@
   <middle>
     <section anchor="Introduction" title="Introduction">
 <t>
-  Several years of deployment and implementation experience with <xref target="RFC6749">OAuth 2.0</xref>
+  Several years of deployment and implementation experience with <xref target="RFC6749">The OAuth 2.0 Authorization Framework</xref>
   has uncovered a need, in some circumstances, for the client to explicitly signal to the authorization server where
   it intends to use the access token it is requesting.
 </t>
@@ -89,10 +89,11 @@
   values in use that convey only the type of access).
 </t>
 <t>
-  A means for the client to signal to the authorization server where it intends to use the access token it's requesting
+  In some circumstances and for some deployments, a means for the client to signal to the authorization server where it
+  intends to use the access token it's requesting
   is important and useful. A number of implementations and deployments of OAuth 2.0 have already employed proprietary parameters
   toward that end.
-  This specification aims to provide a standardized and interoperable alternative to the proprietary approaches going forward.
+  Going forward, this specification aims to provide a standardized and interoperable alternative to the proprietary approaches.
 </t>
     <section anchor="RNC" title="Requirements Notation and Conventions">
 <t>
@@ -127,10 +128,9 @@
 
     <section anchor="ResourceParameter" title="Resource Parameter">
       <t>
-        The client may indicate the protected resource(s) for which it is requesting an access token by
-        including the following parameter in the request.
-      </t>
-      <t>
+        In requests to the authorization server, a client MAY indicate the protected resource(s) to which it is requesting access by
+        using the <spanx style="verb">resource</spanx> parameter, as defined below.
+
       <list style="hanging">
 
       <t hangText="resource">
@@ -146,29 +146,160 @@
         that the requested token is intended to be used at multiple resources.
       </t>
       </list>
+
+        The parameter value indicates the location of a protected resource, typically as an https URL,
+        where the client is requesting access. This enables the authorization server to apply policy as appropriate
+        for the resource, such as determining the type and content of tokens to be issued, if and how
+        tokens are encrypted, and applying appropriate audience restrictions.
+      </t>
+
+      <t>
+        The client SHOULD provide the most specific URI that it can for the API or set of resources it intends to access.
+        In practice a client will know a base URI for the application or resource that it interacts with, which
+        is appropriate to use as the value of the <spanx style="verb">resource</spanx> parameter.
+        The client SHOULD use the base URI for the API unless specific knowledge of the resource
+        dictates the client use a shorter path.
+        For example, the value <spanx style="verb">https://api.example.com/</spanx> would be used
+        for a resource that is the exclusive application on that host, however,
+        if the resource is one of many applications on that host, something like
+        <spanx style="verb">https://api.example.com/app/</spanx> would be used.
+        Another example, for an API like <xref target="RFC7644">SCIM</xref> that has multiple endpoints such as
+        <spanx style="verb">https://apps.example.com/scim/Users</spanx>,
+        <spanx style="verb">https://apps.example.com/scim/Groups</spanx>, and
+        <spanx style="verb">https://apps.example.com/scim/Schemas</spanx>
+        The client would use <spanx style="verb">https://apps.example.com/scim/</spanx> as the resource
+        so that the issued access token is valid for all the endpoints of the SCIM API.
       </t>
       <t>
-        When an access token will be returned from the authorization endpoint, the <spanx style="verb">resource</spanx>
-        parameter is used in the authorization request to the authorization endpoint as defined in Section 4.2.1 of <xref target="RFC6749">OAuth 2.0</xref>.
-        An example of an authorization request where the client tells the authorization server that it wants a token for use at
-        <spanx style="verb">https://rs.example.com/</spanx> is shown in <xref target="authz-endpoint-example"/> below.
+        The following error code is provided for an authorization server to indicate problems with the requested resource(s)
+        in an authorization request or access token request. And can also be used to inform the client that its requested an
+        invalid combination of resource and scope.
+        <list style="hanging">
+          <t hangText="invalid_target">
+            <vspace/>
+            The requested resource is invalid, unknown, or malformed.
+          </t>
+        </list>
       </t>
-<figure title="Authorization Request" anchor="authz-endpoint-example">
+      <t>
+        The authorization server SHOULD audience restrict issued access tokens to the
+        resource(s) indicated by the <spanx style="verb">resource</spanx> parameter.
+        Audience restrictions can be communicated in <xref target="RFC7519">JSON Web Tokens</xref> with the <spanx style="verb">aud</spanx> claim
+        and the top-level member of the same name provides the audience restriction information in a <xref target="RFC7662">Token Introspection</xref> response.
+        The authorization server may use the exact <spanx style="verb">resource</spanx> value as the audience or it may map from that value to a more
+        general URI or abstract identifier for the resource.
+      </t>
+
+      <section anchor="authz-req" title="Authorization Request">
+      <t>
+        When the <spanx style="verb">resource</spanx> parameter is used in an authorization request to the authorization endpoint, it indicates the location of
+        the protected resource(s) to which access is being requested.
+        When an access token will be returned directly from the authorization endpoint via the implicit flow (Section 4.2 of <xref target="RFC6749">OAuth 2.0</xref>),
+        the requested resource is applicable to that access token. In the code flow (Section 4.1 of <xref target="RFC6749">OAuth 2.0</xref>) where an
+        an intermediate representation of the authorization grant (the authorization code) is returned from the authorization endpoint,
+        the requested resource is applicable to the full authorization grant.
+      </t>
+      <t>
+        For authorization requests sent as a JWTs, such as when using
+        <xref target="I-D.ietf-oauth-jwsreq">JWT Secured Authorization Request</xref>,
+        a single <spanx style="verb">resource</spanx> parameter value
+        is represented as a JSON string while multiple values are represented as an array of strings.
+      </t>
+      <t>
+        If the client omits the <spanx style="verb">resource</spanx> parameter when requesting
+        authorization, the authorization server MAY process the
+        request with no specific resource or using a pre-defined default resource value.
+        Alternatively, the authorization server MAY require clients to specify the resource(s) they intend to
+        access and MAY fail requests that omit the parameter with an <spanx style="verb">invalid_target</spanx> error.
+        The authorization server might use this data to inform the user about the resources the client
+        is going to access on her behalf, to meet policy decision (e.g. refuse the request due to unknown resources),
+        and determine the set of resources that can be used in subsequent access token requests.
+      </t>
+      <t>
+        If the authorization server fails to parse the
+        provided value(s) or does not consider the resource(s) acceptable, it should reject the request with an
+        an error response using the error code <spanx style="verb">invalid_target</spanx> as the value of the
+        <spanx style="verb">error</spanx> parameter and can provide additional
+        information regarding the reasons for the error using the
+        <spanx style='verb'>error_description</spanx> and/or <spanx style='verb'>error_uri</spanx> parameters.
+      </t>
+      <t>
+        An example of an authorization request where the client tells the authorization server that it wants an access token for use at
+        <spanx style="verb">https://api.example.com/</spanx> is shown in <xref target="authz-endpoint-example-token"/> below
+        (extra line breaks and indentation are for display purposes only).
+      </t>
+<figure title="Implicit Flow Authorization Request" anchor="authz-endpoint-example-token">
 <artwork><![CDATA[
   GET /as/authorization.oauth2?response_type=token
-     &client_id=s6BhdRkqt3&state=laeb
+     &client_id=s6BhdRkqt3
+     &state=XzZaJlcwYew1u0QBrRv_Gw
      &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
-     &resource=https%3A%2F%2Frs.example.com%2F HTTP/1.1
+     &resource=https%3A%2F%2Fapi.example.com%2F HTTP/1.1
   Host: authorization-server.example.com
 ]]></artwork>
 </figure>
-      <t>
-        When the access token is returned from the token endpoint, the request parameter is included in the token request to the token endpoint.
-        Sections 4.1.1, 4.3.1, 4.4.2, 4.5 and 6 of <xref target="RFC6749">OAuth 2.0</xref> define requests to the token endpoint with different grant types.
-        An example of a token request, using a refresh token, where the client tells the authorization server that it wants a token for use at
-        <spanx style="verb">https://rs.example.com/</spanx> is shown in <xref target="token-endpoint-example"/> below.
-      </t>
-<figure title="Access Token Request" anchor="token-endpoint-example">
+
+        <t>
+          Below in <xref target="authz-endpoint-example-code"/> is an example of an authorization request
+          using the <spanx style="verb">code</spanx> response type
+          where the the client is requesting access to the resource owner's contacts and calendar data at
+          <spanx style="verb">https://stuff.example.com/</spanx>
+          (extra line breaks and indentation are for display purposes only).
+        </t>
+        <figure title="Code Flow Authorization Request" anchor="authz-endpoint-example-code">
+          <artwork><![CDATA[
+  GET /as/authorization.oauth2?response_type=code
+     &client_id=s6BhdRkqt3
+     &state=tNwzQ87pC6llebpmac_IDeeq-mCR2wLDYljHUZUAWuI
+     &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+     &scope=calendar%20contacts
+     &resource=https%3A%2F%2Fstuff.example.com%2F HTTP/1.1
+  Host: authorization-server.example.com
+]]></artwork>
+        </figure>
+    </section>
+
+
+    <section anchor="token-req" title="Access Token Request">
+
+    <t>
+      When the <spanx style="verb">resource</spanx> parameter is used on an access token request made to the token endpoint,
+      for all grant types, it indicates the location of the target service or protected resource where the client intends to use
+      the requested access token.
+    </t>
+    <t>
+      The resource value(s) that are acceptable to an authorization server in fulfilling an access token request are
+      at its sole discretion based on local policy or configuration. In the case of a
+      <spanx style="verb">refresh_token</spanx> grant type request, such policy may limit the acceptable resources
+      to those that were originally granted by the resource owner
+      or a subset thereof.
+    </t>
+    <t>
+      When requesting a token, the client can indicate the desired target
+      service(s) where it intends to use that token by way of the
+      <spanx style="verb">resource</spanx> parameter and can indicate the
+      desired scope of the requested token using the <spanx style="verb">scope</spanx> parameter.
+      The semantics of such a request are that the client is asking for a
+      token with the requested scope that is usable at all the requested
+      target services.  Effectively, the requested access rights of the
+      token are the cartesian product of all the scopes at all the target
+      services.
+      To the extent possible, when issuing access tokens,
+      the authorization server should adapt the scope value associated with an access token to
+      the value the respective resource is able to process and needs to know.
+      This further improves privacy as scope values give an indication of what services the resource
+      owner uses and it improves security as scope values may contain confidential data.
+      As specified in Section 5.1 of <xref target="RFC6749"/>, the authorization server must indicate
+      the access token's effective scope to the client in the <spanx style="verb">scope</spanx>
+      response parameter value when it differs from the scope requested by the client.
+    </t>
+    <t>
+      An example of an access token request, using a refresh token, where the client tells the authorization server that
+      it wants an access token for use at
+      <spanx style="verb">https://api.example.com/</spanx> is shown in <xref target="token-endpoint-example-rt"/> below
+      (extra line breaks and indentation are for display purposes only).
+    </t>
+<figure title="Access Token Request" anchor="token-endpoint-example-rt">
 <artwork><![CDATA[
   POST /as/token.oauth2 HTTP/1.1
   Host: authorization-server.example.com
@@ -176,46 +307,12 @@
   Content-Type: application/x-www-form-urlencoded
 
   grant_type=refresh_token
-  &refresh_token=4LTC8lb0acc6Oy4esc1Nk9BWC0imAwH
-  &resource=https%3A%2F%2Frs.example.com%2F
+  &refresh_token=4LTC8lb0acc6Oy4esc1Nk9BWC0imAwH7kic16BDC2
+  &resource=https%3A%2F%2Fapi.example.com%2F
 ]]></artwork>
 </figure>
-      <t>
-        The <spanx style="verb">resource</spanx> parameter indicates the location of a protected resource, typically as an https URL,
-        where the client intends to use
-        the requested access token. This enables the authorization server to apply policy as appropriate
-        for the resource, such as determining the type and content of the token to be issued, if and how
-        the token is to be encrypted, and applying appropriate audience restrictions to the token.
-      </t>
-      <t>
-        The client SHOULD provide the most specific URI that it can for the set of resources or API it intends to access.
-        In practice a client will know a base URI for the resource or application that it interacts with, which
-        is appropriate to use as the value of the <spanx style="verb">resource</spanx> parameter.
-        The client SHOULD use the base URI for the API unless specific knowledge of the resource
-        dictates the client use a shorter path.
-        For example, the value <spanx style="verb">https://rs.example.com/</spanx> would be used
-        for a resource that is the exclusive application on that host, however,
-        if the resource is one of many applications on that host, something like
-        <spanx style="verb">https://rs.example.com/application/</spanx> would be used.
-        Another example, for an API like <xref target="RFC7644">SCIM</xref> that has multiple endpoints such as
-        <spanx style="verb">https://rs.example.com/scim/Users</spanx>,
-        <spanx style="verb">https://rs.example.com/scim/Groups</spanx>, and
-        <spanx style="verb">https://rs.example.com/scim/Schemas</spanx>
-        The client would use <spanx style="verb">https://rs.example.com/scim/</spanx> as the resource
-        so that the issued access token is valid for all the endpoints of the SCIM API.
-      </t>
-      <t>
-        The authorization server SHOULD audience restrict the access token to the
-        resource(s) indicated by the <spanx style="verb">resource</spanx> parameter.
-        Audience restrictions can be communicated in <xref target="RFC7519">JSON Web Tokens</xref> with the <spanx style="verb">aud</spanx> claim
-        and the top-level member of the same name provides the audience restriction information in a <xref target="RFC7662">Token Introspection</xref> response.
-        The authorization server may use the exact <spanx style="verb">resource</spanx> value as the audience or it may map from that value to a more
-        general URI or abstract identifier for the resource.
-      </t>
-      <t>
-        The requested resource pertains to the access token that is the expected result of the request and
-        not to the underlying access granted by the resource owner.
-      </t>
+    </section>
+
     </section>
 
     <section anchor="Security" title="Security Considerations">
@@ -247,59 +344,47 @@
 
 
     <section anchor="IANA" title="IANA Considerations">
-
-      <section anchor="OAuthParametersReg" title="OAuth Parameters Registration">
-
+      <section title="OAuth Parameters Registration">
         <t>
           This specification registers the following value
           in the IANA "OAuth Parameters" registry
           <xref target="IANA.OAuth.Parameters"/>
           established by <xref target="RFC6749"/>.
         </t>
-
-        <section anchor="ParametersContents" title="Registry Contents">
-
-          <t>
-            <?rfc subcompact="yes"?>
-            <list style='symbols'>
-              <t>Parameter name: resource</t>
-              <t>Parameter usage location: authorization request, token request
-                [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token request'
-                and this draft has a more generalized usage and needs to somehow either update that registration
-                or do a partial registration and reference]]</t>
-              <t>Change controller: IESG</t>
-              <t>Specification document(s): <xref target="ResourceParameter"/> of [[ this specification ]]</t>
-            </list>
-          </t>
-        </section>
+        <t>
+          <?rfc subcompact="yes"?>
+          <list style='symbols'>
+            <t>Parameter name: resource</t>
+            <t>Parameter usage location: authorization request, token request
+              [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token request'
+              and this draft has a more generalized usage and needs to somehow either update that registration
+              or do a partial registration and reference]]</t>
+            <t>Change controller: IESG</t>
+            <t>Specification document(s): [[ this specification ]]</t>
+          </list>
+        </t>
       </section>
-      <section anchor="OAuthErrReg" title="OAuth Extensions Error Registration">
-
+      <section title="OAuth Extensions Error Registration">
         <t>
           This specification registers the following error in
           the IANA "OAuth Extensions Error Registry"
           <xref target="IANA.OAuth.Parameters"/>
           established by <xref target="RFC6749"/>.
         </t>
-
-        <section anchor="ErrorssContents" title="Registry Contents">
-
-          <t>
-            <?rfc subcompact="yes"?>
-            <list style='symbols'>
-              <t>Error name: invalid_target</t>
-              <t>Error usage location: implicit grant error response, token error response
-                [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token error response'
-                and this draft has a more generalized usage and needs to somehow either update that registration
-                or do a partial registration and reference]]</t>
-              <t>Related protocol extension: resource parameter</t>
-              <t>Change controller: IESG</t>
-              <t>Specification document(s): <xref target="ResourceParameter"/> of [[ this specification ]]</t>
-            </list>
-          </t>
-        </section>
+        <t>
+          <?rfc subcompact="yes"?>
+          <list style='symbols'>
+            <t>Error name: invalid_target</t>
+            <t>Error usage location: implicit grant error response, token error response
+              [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token error response'
+              and this draft has a more generalized usage and needs to somehow either update that registration
+              or do a partial registration and reference]]</t>
+            <t>Related protocol extension: resource parameter</t>
+            <t>Change controller: IESG</t>
+            <t>Specification document(s): [[ this specification ]]</t>
+          </list>
+        </t>
       </section>
-
     </section>
 
   </middle>
@@ -328,13 +413,14 @@
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7519.xml' ?>
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6750.xml' ?>
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7644.xml' ?>
+      <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-oauth-jwsreq-16.xml'?>
     </references>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>
         This specification was developed within the OAuth Working Group
         under the chairmanship of Hannes Tschofenig
-        and Rifaat Shekh-Yusef with Eric Rescorla and Ben K
+        and Rifaat Shekh-Yusef with Eric Rescorla and Benjamin Kaduk
         serving as Security Area Directors.  Additionally, the following
         individuals contributed ideas, feedback, and wording
         that helped shape this specification:</t>
@@ -364,12 +450,13 @@
       <t>
         draft-ietf-oauth-resource-indicators-01
         <list style='symbols'>
-          <t>Editorial updates.</t>
-          <t>Rework the Acknowledgements section.</t>
-          <t>Use RFC 8174 boilerplate.</t>
+          <t>Significant rework of the main section of the document attempting to clarify a number of things that came up at, around and after IETF 102 and the call for adoption. </t>
           <t>Change the "invalid_resource" error to "invalid_target" to align with draft-ietf-oauth-token-exchange, which has some overlap in functionality.</t>
           <t>Allow the "resource" parameter value to have a query component (aligning with draft-ietf-oauth-token-exchange).</t>
           <t>Moved the Security Considerations section to before the IANA Considerations.</t>
+          <t>Other editorial updates.</t>
+          <t>Rework the Acknowledgements section.</t>
+          <t>Use RFC 8174 boilerplate.</t>
         </list>
       </t>	    
       <t>
