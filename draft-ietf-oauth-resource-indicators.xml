@@ -46,7 +46,7 @@
         An extension to The OAuth 2.0
         Authorization Framework defining request parameters that enable a client
         to explicitly signal to an authorization server about the location of the protected
-        resource(s) to be accessed.
+        resource(s) to which it is requesting access.
       </t>
     </abstract>
 
@@ -87,14 +87,14 @@
   typically about what access is being requested rather than where that access will be redeemed
   (e.g. <spanx style="verb">email</spanx>, <spanx style="verb">admin:org</spanx>, <spanx style="verb">user_photos</spanx>,
   <spanx style="verb">channels:read</spanx>, and <spanx style="verb">channels:write</spanx> are a small sample of scope
-  values in use that convey only the type of access).
+  values in use in the wild that convey only the type of access and not the location).
 </t>
 <t>
   In some circumstances and for some deployments, a means for the client to signal to the authorization server where it
   intends to use the access token it's requesting
   is important and useful. A number of implementations and deployments of OAuth 2.0 have already employed proprietary parameters
   toward that end.
-  Going forward, this specification aims to provide a standardized and interoperable alternative to the proprietary approaches.
+  Going forward, this specification aspires to provide a standardized and interoperable alternative to the proprietary approaches.
 </t>
     <section anchor="RNC" title="Requirements Notation and Conventions">
 <t>
@@ -130,20 +130,20 @@
     <section anchor="ResourceParameter" title="Resource Parameter">
       <t>
         In requests to the authorization server, a client MAY indicate the protected resource(s) to which it is requesting access by
-        using the <spanx style="verb">resource</spanx> parameter, as defined below.
+        including the following parameter in the request.
 
       <list style="hanging">
 
       <t hangText="resource">
         <vspace/>
         Indicates the location of the target service or
-        resource where where the requested access token will be used
+        resource where access is being requested.
         Its value MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         which MAY include a query component but MUST NOT include a fragment component.
         Multiple
         <spanx style="verb">resource</spanx>
-        parameters may be used to indicate
+        parameters MAY be used to indicate
         that the requested token is intended to be used at multiple resources.
       </t>
       </list>
@@ -155,15 +155,15 @@
       </t>
 
       <t>
-        The client SHOULD provide the most specific URI that it can for the API or set of resources it intends to access.
+        The client SHOULD provide the most specific URI that it can for the complete API or set of resources it intends to access.
         In practice a client will know a base URI for the application or resource that it interacts with, which
         is appropriate to use as the value of the <spanx style="verb">resource</spanx> parameter.
-        The client SHOULD use the base URI for the API unless specific knowledge of the resource
-        dictates the client use a shorter path.
+        The client SHOULD use the base URI of the API as the <spanx style="verb">resource</spanx> parameter
+        value unless specific knowledge of the resource dictates otherwise.
         For example, the value <spanx style="verb">https://api.example.com/</spanx> would be used
         for a resource that is the exclusive application on that host, however,
         if the resource is one of many applications on that host, something like
-        <spanx style="verb">https://api.example.com/app/</spanx> would be used.
+        <spanx style="verb">https://api.example.com/app/</spanx> would be used as a more specific value.
         Another example, for an API like <xref target="RFC7644">SCIM</xref> that has multiple endpoints such as
         <spanx style="verb">https://apps.example.com/scim/Users</spanx>,
         <spanx style="verb">https://apps.example.com/scim/Groups</spanx>, and
@@ -173,8 +173,8 @@
       </t>
       <t>
         The following error code is provided for an authorization server to indicate problems with the requested resource(s)
-        in an authorization request or access token request. And can also be used to inform the client that its requested an
-        invalid combination of resource and scope.
+        in response to an authorization request or access token request. And can also be used to inform the client that
+        it has requested an invalid combination of resource and scope.
         <list style="hanging">
           <t hangText="invalid_target">
             <vspace/>
@@ -188,7 +188,7 @@
         Audience restrictions can be communicated in <xref target="RFC7519">JSON Web Tokens</xref> with the <spanx style="verb">aud</spanx> claim
         and the top-level member of the same name provides the audience restriction information in a <xref target="RFC7662">Token Introspection</xref> response.
         The authorization server may use the exact <spanx style="verb">resource</spanx> value as the audience or it may map from that value to a more
-        general URI or abstract identifier for the resource.
+        general URI or abstract identifier for the given resource.
       </t>
 
       <section anchor="authz-req" title="Authorization Request">
@@ -297,7 +297,7 @@
     <t>
       An example of an access token request, using a refresh token, where the client tells the authorization server that
       it wants an access token for use at
-      <spanx style="verb">https://api.example.com/</spanx> is shown in <xref target="token-endpoint-example-rt"/> below
+      <spanx style="verb">https://api.example.com/app/</spanx> is shown in <xref target="token-endpoint-example-rt"/> below
       (extra line breaks and indentation are for display purposes only).
     </t>
 <figure title="Access Token Request" anchor="token-endpoint-example-rt">
@@ -309,7 +309,7 @@
 
   grant_type=refresh_token
   &refresh_token=4LTC8lb0acc6Oy4esc1Nk9BWC0imAwH7kic16BDC2
-  &resource=https%3A%2F%2Fapi.example.com%2F
+  &resource=https%3A%2F%2Fapi.example.com%2Fapp%2F
 ]]></artwork>
 </figure>
     </section>
@@ -318,8 +318,8 @@
 
     <section anchor="Security" title="Security Considerations">
       <t>
-        An access token that is audience restricted to a protected resource, which obtains the
-        token legitimately, cannot be used to access resources on behalf of the
+        An access token that is audience restricted to a protected resource that obtains that
+        token legitimately cannot be used to access resources on behalf of the
         resource owner at other protected resources. The <spanx style="verb">resource</spanx>
         parameter enables a client to indicate the protected resources where the requested access
         token will be used, which in turn enables the authorization server to apply the
@@ -327,9 +327,9 @@
       </t>
       <t>
         Some servers may host user content or be multi-tenant. In order to avoid attacks that might
-        confuse a client into sending a AT to a resource that is user controlled or is owned by a different tenant,
+        confuse a client into sending an access token to a resource that is user controlled or is owned by a different tenant,
         it is important to use a specific
-        resource URI including a path component. This will cause any AT issued for
+        resource URI including a path component. This will cause any access token issued for
         accessing the user controlled resource to have a invalid audience if replayed against the legitimate
         resource API.
       </t>
