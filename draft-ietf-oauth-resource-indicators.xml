@@ -271,9 +271,12 @@
     <t>
       The resource value(s) that are acceptable to an authorization server in fulfilling an access token request are
       at its sole discretion based on local policy or configuration. In the case of a
-      <spanx style="verb">refresh_token</spanx> grant type request, such policy may limit the acceptable resources
+      <spanx style="verb">refresh_token</spanx> or <spanx style="verb">authorization_code</spanx> grant type request, such policy may limit the acceptable resources
       to those that were originally granted by the resource owner
       or a subset thereof.
+      In the <spanx style="verb">authorization_code</spanx> case where the requested resources are a subset of the set of resources originally granted,
+      the authorization server will issue an access token based on that subset of requested resources while any refresh token
+      that is returned is bound to the full original grant.
     </t>
     <t>
       When requesting a token, the client can indicate the desired target
