@@ -129,7 +129,8 @@
 
     <section anchor="ResourceParameter" title="Resource Parameter">
       <t>
-        In requests to the authorization server, a client MAY indicate the protected resource(s) to which it is requesting access by
+        In requests to the authorization server, a client MAY indicate the protected resource (a.k.a. resource server, application,
+        API, etc.) to which it is requesting access by
         including the following parameter in the request.
 
       <list style="hanging">
