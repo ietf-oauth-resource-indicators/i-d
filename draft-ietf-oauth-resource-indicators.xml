@@ -210,7 +210,7 @@
       <t>
         If the client omits the <spanx style="verb">resource</spanx> parameter when requesting
         authorization, the authorization server MAY process the
-        request with no specific resource or using a pre-defined default resource value.
+        request with no specific resource or by using a pre-defined default resource value.
         Alternatively, the authorization server MAY require clients to specify the resource(s) they intend to
         access and MAY fail requests that omit the parameter with an <spanx style="verb">invalid_target</spanx> error.
         The authorization server might use this data to inform the user about the resources the client
