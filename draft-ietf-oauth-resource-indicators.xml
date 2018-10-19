@@ -227,7 +227,7 @@
       </t>
       <t>
         An example of an authorization request where the client tells the authorization server that it wants an access token for use at
-        <spanx style="verb">https://api.example.com/</spanx> is shown in <xref target="authz-endpoint-example-token"/> below
+        <spanx style="verb">https://api.example.com/app/</spanx> is shown in <xref target="authz-endpoint-example-token"/> below
         (extra line breaks and indentation are for display purposes only).
 
 <figure title="Implicit Flow Authorization Request" anchor="authz-endpoint-example-token">
@@ -236,7 +236,7 @@
      &client_id=example-client
      &state=XzZaJlcwYew1u0QBrRv_Gw
      &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Eorg%2Fcb
-     &resource=https%3A%2F%2Fapi.example.com%2F HTTP/1.1
+     &resource=https%3A%2F%2Fapi.example.com%2Fapp%2F HTTP/1.1
   Host: authorization-server.example.com
 ]]></artwork>
 </figure>
