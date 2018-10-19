@@ -304,7 +304,7 @@
         Following from the code flow authorization request shown in <xref target="authz-endpoint-example-code"/>,
         the below examples show an <spanx style="verb">authorization_code</spanx> grant type access token request
         and response where the client tells the authorization server that
-        it wants the access token for use at <spanx style="verb">https://cal.example.com/</spanx>.
+        it wants the access token for use at <spanx style="verb">https://cal.example.com/</spanx>
         (extra line breaks and indentation are for display purposes only).
 
         <figure title="Access Token Request" anchor="token-endpoint-example-ac">
