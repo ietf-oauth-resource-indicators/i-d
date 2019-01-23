@@ -137,14 +137,13 @@
 
       <t hangText="resource">
         <vspace/>
-        Indicates the identifier of the target service or
+        Indicates the target service or
         resource where access is being requested.
         Its value MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         which MAY include a query component but MUST NOT include a fragment component.
-        The URI MAY correspond to the network addressable endpoint where the target resource is hosted. 
-        Alternatively, the URI MAY also represent an abstract identifier that does not correspond to a network addressable endpoint. 
-        See the Security Considerations section for more details about the security implications of the two approaches. 
+        The URI MAY correspond to a network addressable location where the target resource is hosted or
+        it MAY be an abstract identifier representing the identity of the resource.
         Multiple
         <spanx style="verb">resource</spanx>
         parameters MAY be used to indicate
