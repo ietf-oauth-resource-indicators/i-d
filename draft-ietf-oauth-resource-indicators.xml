@@ -272,7 +272,7 @@
 
     <t>
       When the <spanx style="verb">resource</spanx> parameter is used on an access token request made to the token endpoint,
-      for all grant types, it indicates the location of the target service or protected resource where the client intends to use
+      for all grant types, it indicates the target service or protected resource where the client intends to use
       the requested access token.
     </t>
     <t>
