@@ -531,7 +531,7 @@
       <t>
         draft-ietf-oauth-resource-indicators-02
         <list style='symbols'>
-          <t></t>
+          <t>Clarify that the value of the "resource" parameter can be an abstract identifier for the resource as well as network addressable location.</t>
         </list>
       </t>
       <t>
