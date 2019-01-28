@@ -138,12 +138,12 @@
       <t hangText="resource">
         <vspace/>
         Indicates the target service or
-        resource where access is being requested.
+        resource at which access is being requested.
         Its value MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         which MAY include a query component but MUST NOT include a fragment component.
-        The URI MAY correspond to a network addressable location where the target resource is hosted or
-        it MAY be an abstract identifier representing the identity of the resource.
+        The <spanx style="verb">resource</spanx> parameter URI value is an identifier representing the identity of the resource,
+        which MAY be a locator that corresponds to a network addressable location where the target resource is hosted.
         Multiple
         <spanx style="verb">resource</spanx>
         parameters MAY be used to indicate
@@ -152,7 +152,7 @@
       </list>
 
         The parameter value identifies a resource to which the client is requesting access. 
-        The parameter can carry the location of a protected resource, typically as an https URL, or an abstract identifier.
+        The parameter can carry the location of a protected resource, typically as an https URL, or a more abstract identifier.
         This enables the authorization server to apply policy as appropriate
         for the resource, such as determining the type and content of tokens to be issued, if and how
         tokens are encrypted, and applying appropriate audience restrictions.
@@ -530,7 +530,7 @@
       <t>
         draft-ietf-oauth-resource-indicators-02
         <list style='symbols'>
-          <t>Clarify that the value of the "resource" parameter can be an abstract identifier for the resource as well as network addressable location.</t>
+          <t>Clarify that the value of the "resource" parameter is a URI which can be an abstract identifier for the target resource and doesn't necessarily have to correspond to a network addressable location.</t>
         </list>
       </t>
       <t>
