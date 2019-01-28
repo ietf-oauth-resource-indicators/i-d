@@ -45,7 +45,7 @@
       <t>
         An extension to the OAuth 2.0
         Authorization Framework defining request parameters that enable a client
-        to explicitly signal to an authorization server about the location of the protected
+        to explicitly signal to an authorization server about the identity of the protected
         resource(s) to which it is requesting access.
       </t>
     </abstract>
@@ -87,7 +87,7 @@
   typically about what access is being requested rather than where that access will be redeemed
   (e.g. <spanx style="verb">email</spanx>, <spanx style="verb">admin:org</spanx>, <spanx style="verb">user_photos</spanx>,
   <spanx style="verb">channels:read</spanx>, and <spanx style="verb">channels:write</spanx> are a small sample of scope
-  values in use in the wild that convey only the type of access and not the location).
+  values in use in the wild that convey only the type of access and not the location or identity).
 </t>
 <t>
   In some circumstances and for some deployments, a means for the client to signal to the authorization server where it
@@ -137,11 +137,13 @@
 
       <t hangText="resource">
         <vspace/>
-        Indicates the location of the target service or
+        Indicates the target service or
         resource where access is being requested.
         Its value MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         which MAY include a query component but MUST NOT include a fragment component.
+        The URI MAY correspond to a network addressable location where the target resource is hosted or
+        it MAY be an abstract identifier representing the identity of the resource.
         Multiple
         <spanx style="verb">resource</spanx>
         parameters MAY be used to indicate
@@ -149,8 +151,9 @@
       </t>
       </list>
 
-        The parameter value indicates the location of a protected resource, typically as an https URL,
-        where the client is requesting access. This enables the authorization server to apply policy as appropriate
+        The parameter value identifies a resource to which the client is requesting access. 
+        The parameter can carry the location of a protected resource, typically as an https URL, or an abstract identifier.
+        This enables the authorization server to apply policy as appropriate
         for the resource, such as determining the type and content of tokens to be issued, if and how
         tokens are encrypted, and applying appropriate audience restrictions.
       </t>
@@ -194,7 +197,7 @@
 
       <section anchor="authz-req" title="Authorization Request">
       <t>
-        When the <spanx style="verb">resource</spanx> parameter is used in an authorization request to the authorization endpoint, it indicates the location of
+        When the <spanx style="verb">resource</spanx> parameter is used in an authorization request to the authorization endpoint, it indicates the identity of
         the protected resource(s) to which access is being requested.
         When an access token will be returned directly from the authorization endpoint via the implicit flow (Section 4.2 of <xref target="RFC6749">OAuth 2.0</xref>),
         the requested resource is applicable to that access token. In the code flow (Section 4.1 of <xref target="RFC6749">OAuth 2.0</xref>) where an
@@ -268,7 +271,7 @@
 
     <t>
       When the <spanx style="verb">resource</spanx> parameter is used on an access token request made to the token endpoint,
-      for all grant types, it indicates the location of the target service or protected resource where the client intends to use
+      for all grant types, it indicates the target service or protected resource where the client intends to use
       the requested access token.
     </t>
     <t>
@@ -408,6 +411,14 @@
         is needed when using access tokens with multiple audiences. Furthermore an authorization server may
         be unwilling or unable to fulfill a token request with multiple resources.
       </t>
+      <t>
+        Whenever feasible, the <spanx style="verb">resource</spanx> parameter
+        should correspond to the network addressable location of the protected resource. 
+        This makes it possible for the client to validate that the resource being requested controls the corresponding 
+        network location, reducing the risk of malicious endpoints obtaining tokens meant for other resources.
+        If the <spanx style="verb">resource</spanx> parameter contains an abstract identifier, it is the client's 
+        responsibility to validate out of band that any network endpoint to which tokens are sent are the intended audience for that identifier.
+      </t>
     </section>
 
 
@@ -493,6 +504,7 @@
         individuals contributed ideas, feedback, and wording
         that helped shape this specification:</t>
       <t>
+        Vittorio Bertocci,
         Sergey Beryozkin,
         William Denniss,
         Vladimir Dzhuvinov,
@@ -518,7 +530,7 @@
       <t>
         draft-ietf-oauth-resource-indicators-02
         <list style='symbols'>
-          <t></t>
+          <t>Clarify that the value of the "resource" parameter can be an abstract identifier for the resource as well as network addressable location.</t>
         </list>
       </t>
       <t>
