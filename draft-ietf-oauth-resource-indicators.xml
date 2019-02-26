@@ -55,7 +55,7 @@
   <middle>
     <section anchor="Introduction" title="Introduction">
 <t>
-  Several years of deployment and implementation experience with <xref target="RFC6749">The OAuth 2.0 Authorization Framework</xref>
+  Several years of deployment and implementation experience with the <xref target="RFC6749">OAuth 2.0 Authorization Framework</xref>
   has uncovered a need, in some circumstances, for the client to explicitly signal to the authorization server where
   it intends to use the access token it is requesting.
 </t>
@@ -65,7 +65,7 @@
   requires knowing which resource will receive and decrypt the token. Furthermore, various resources oftentimes have
   different requirements with respect to the data contained in, or referenced by, the token and knowing the resource
   where the client intends to use the
-  token allows the the authorization server to mint the token accordingly.
+  token allows the authorization server to mint the token accordingly.
 </t>
 <t>
   Specific knowledge of the intended recipient(s) of the access token also helps facilitate improved
@@ -247,7 +247,7 @@
         <t>
           Below in <xref target="authz-endpoint-example-code"/> is an example of an authorization request
           using the <spanx style="verb">code</spanx> response type
-          where the the client is requesting access to the resource owner's contacts and calendar data at
+          where the client is requesting access to the resource owner's contacts and calendar data at
           <spanx style="verb">https://cal.example.com/</spanx> and <spanx style="verb">https://contacts.example.com/</spanx>
           (extra line breaks and indentation are for display purposes only).
 
@@ -516,6 +516,7 @@
         Anthony Nadalin,
         Justin Richer,
         Nat Sakimura,
+        Rifaat Shekh-Yusef,
         Filip Skokan,
         and
         Hans Zandbelt.
@@ -530,7 +531,7 @@
       <t>
         draft-ietf-oauth-resource-indicators-03
         <list style='symbols'>
-         <t></t>
+         <t>Fix typos and update draft-ietf-oauth-jwsreq ref to -17.</t>
         </list>
       </t>
       <t>
