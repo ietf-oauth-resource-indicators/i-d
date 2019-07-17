@@ -406,8 +406,9 @@
       <t>
         Although multiple occurrences of the <spanx style="verb">resource</spanx> parameter
         may be included in a request, using only a single <spanx style="verb">resource</spanx> parameter
-        is encouraged. A bearer token that has multiple intended recipients (audiences) can be used by
-        any one of those recipients at any other. Thus, a high degree of trust between the involved parties
+        is encouraged. A bearer token that has multiple intended recipients (audiences) indicating that the token
+        is valid at more than one protected resource can be used by any one of those protected resources to access
+        any of the other protected resources. Thus, a high degree of trust between the involved parties
         is needed when using access tokens with multiple audiences. Furthermore an authorization server may
         be unwilling or unable to fulfill a token request with multiple resources.
       </t>
