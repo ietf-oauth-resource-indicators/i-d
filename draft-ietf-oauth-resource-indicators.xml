@@ -492,7 +492,7 @@
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7519.xml' ?>
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6750.xml' ?>
       <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7644.xml' ?>
-      <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-oauth-jwsreq-16.xml'?>
+      <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-oauth-jwsreq-19.xml'?>
     </references>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
@@ -531,7 +531,8 @@
       <t>
         draft-ietf-oauth-resource-indicators-03
         <list style='symbols'>
-         <t>Fix typos and update draft-ietf-oauth-jwsreq ref to -17.</t>
+         <t>Fix typos</t>
+         <t>Update draft-ietf-oauth-jwsreq ref to -19.</t>
         </list>
       </t>
       <t>
