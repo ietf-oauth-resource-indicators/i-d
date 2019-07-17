@@ -138,7 +138,7 @@
       <t hangText="resource">
         <vspace/>
         Indicates the target service or
-        resource at which access is being requested.
+        resource to which access is being requested.
         Its value MUST be an
         absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
         which MAY include a query component but MUST NOT include a fragment component.
@@ -177,7 +177,7 @@
       </t>
       <t>
         The following error code is provided for an authorization server to indicate problems with the requested resource(s)
-        in response to an authorization request or access token request. And can also be used to inform the client that
+        in response to an authorization request or access token request. It can also be used to inform the client that
         it has requested an invalid combination of resource and scope.
         <list style="hanging">
           <t hangText="invalid_target">
@@ -200,7 +200,7 @@
         When the <spanx style="verb">resource</spanx> parameter is used in an authorization request to the authorization endpoint, it indicates the identity of
         the protected resource(s) to which access is being requested.
         When an access token will be returned directly from the authorization endpoint via the implicit flow (Section 4.2 of <xref target="RFC6749">OAuth 2.0</xref>),
-        the requested resource is applicable to that access token. In the code flow (Section 4.1 of <xref target="RFC6749">OAuth 2.0</xref>) where an
+        the requested resource is applicable to that access token. In the code flow (Section 4.1 of <xref target="RFC6749">OAuth 2.0</xref>) where
         an intermediate representation of the authorization grant (the authorization code) is returned from the authorization endpoint,
         the requested resource is applicable to the full authorization grant.
       </t>
@@ -222,7 +222,7 @@
       </t>
       <t>
         If the authorization server fails to parse the
-        provided value(s) or does not consider the resource(s) acceptable, it should reject the request with an
+        provided value(s) or does not consider the resource(s) acceptable, it should reject the request with
         an error response using the error code <spanx style="verb">invalid_target</spanx> as the value of the
         <spanx style="verb">error</spanx> parameter and can provide additional
         information regarding the reasons for the error using the
@@ -305,8 +305,8 @@
     </t>
       <t>
         Following from the code flow authorization request shown in <xref target="authz-endpoint-example-code"/>,
-        the below examples show an <spanx style="verb">authorization_code</spanx> grant type access token request
-        and response where the client tells the authorization server that
+        the below examples show an <spanx style="verb">authorization_code</spanx> grant type access token request (<xref target="token-endpoint-example-ac"/>)
+        and response (<xref target="response-example-ac"/>) where the client tells the authorization server that
         it wants the access token for use at <spanx style="verb">https://cal.example.com/</spanx>
         (extra line breaks and indentation are for display purposes only).
 
@@ -400,7 +400,7 @@
         confuse a client into sending an access token to a resource that is user controlled or is owned by a different tenant,
         it is important to use a specific
         resource URI including a path component. This will cause any access token issued for
-        accessing the user controlled resource to have a invalid audience if replayed against the legitimate
+        accessing the user controlled resource to have an invalid audience if replayed against the legitimate
         resource API.
       </t>
       <t>
@@ -499,13 +499,14 @@
       <t>
         This specification was developed within the OAuth Working Group
         under the chairmanship of Hannes Tschofenig
-        and Rifaat Shekh-Yusef with Eric Rescorla and Benjamin Kaduk
+        and Rifaat Shekh-Yusef with Eric Rescorla, Benjamin Kaduk and Roman Danyliw
         serving as Security Area Directors.  Additionally, the following
         individuals contributed ideas, feedback, and wording
         that helped shape this specification:</t>
       <t>
         Vittorio Bertocci,
         Sergey Beryozkin,
+        Roman Danyliw,
         William Denniss,
         Vladimir Dzhuvinov,
         George Fletcher,
@@ -531,8 +532,8 @@
       <t>
         draft-ietf-oauth-resource-indicators-03
         <list style='symbols'>
-         <t>Fix typos</t>
-         <t>Update draft-ietf-oauth-jwsreq ref to -19.</t>
+          <t>Editorial updates from AD review.</t>
+          <t>Update draft-ietf-oauth-jwsreq ref to -19.</t>
         </list>
       </t>
       <t>
