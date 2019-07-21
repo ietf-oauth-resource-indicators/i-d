@@ -426,7 +426,7 @@
     <section anchor="IANA" title="IANA Considerations">
       <section title="OAuth Parameters Registration">
         <t>
-          This specification registers the following value
+          This specification updates the following value
           in the IANA "OAuth Parameters" registry
           <xref target="IANA.OAuth.Parameters"/>
           established by <xref target="RFC6749"/>.
@@ -435,10 +435,7 @@
           <?rfc subcompact="yes"?>
           <list style='symbols'>
             <t>Parameter name: resource</t>
-            <t>Parameter usage location: authorization request, token request
-              [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token request'
-              and this draft has a more generalized usage and needs to somehow either update that registration
-              or do a partial registration and reference]]</t>
+            <t>Parameter usage location: authorization request, token request</t>
             <t>Change controller: IESG</t>
             <t>Specification document(s): [[ this specification ]]</t>
           </list>
@@ -446,7 +443,7 @@
       </section>
       <section title="OAuth Extensions Error Registration">
         <t>
-          This specification registers the following error in
+          This specification updates the following error in
           the IANA "OAuth Extensions Error Registry"
           <xref target="IANA.OAuth.Parameters"/>
           established by <xref target="RFC6749"/>.
@@ -455,10 +452,7 @@
           <?rfc subcompact="yes"?>
           <list style='symbols'>
             <t>Error name: invalid_target</t>
-            <t>Error usage location: implicit grant error response, token error response
-              [[TODO: draft-ietf-oauth-token-exchange will have already registered this for 'token error response'
-              and this draft has a more generalized usage and needs to somehow either update that registration
-              or do a partial registration and reference]]</t>
+            <t>Error usage location: implicit grant error response, token error response</t>
             <t>Related protocol extension: resource parameter</t>
             <t>Change controller: IESG</t>
             <t>Specification document(s): [[ this specification ]]</t>
@@ -535,6 +529,7 @@
         <list style='symbols'>
           <t>Editorial updates from AD review.</t>
           <t>Update draft-ietf-oauth-jwsreq ref to -19.</t>
+          <t>Update the IANA requests to say they update the registries.</t>
         </list>
       </t>
       <t>
