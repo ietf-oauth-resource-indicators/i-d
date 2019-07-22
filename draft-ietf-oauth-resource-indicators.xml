@@ -295,7 +295,7 @@
       token are the cartesian product of all the scopes at all the target
       services.
       To the extent possible, when issuing access tokens,
-      the authorization server should adapt the scope value associated with an access token to
+      the authorization server should downscope the scope value associated with an access token to
       the value the respective resource is able to process and needs to know.
       This further improves privacy as scope values give an indication of what services the resource
       owner uses and it improves security as scope values may contain confidential data.
