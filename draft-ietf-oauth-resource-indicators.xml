@@ -13,7 +13,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 
-<rfc category="std" docName="draft-ietf-oauth-resource-indicators-03" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-oauth-resource-indicators-04" ipr="trust200902">
   <front>
     <title abbrev="OAuth Resource Indicators">Resource Indicators for OAuth 2.0</title>
 
@@ -298,7 +298,8 @@
       the authorization server should downscope the scope value associated with an access token to
       the value the respective resource is able to process and needs to know.
       This further improves privacy as scope values give an indication of what services the resource
-      owner uses and it improves security as scope values may contain confidential data.
+      owner uses and downscoping a token to only that which is needed for a particular service can
+      limit the extent to which such information is revealed across different services.
       As specified in Section 5.1 of <xref target="RFC6749"/>, the authorization server must indicate
       the access token's effective scope to the client in the <spanx style="verb">scope</spanx>
       response parameter value when it differs from the scope requested by the client.
@@ -523,6 +524,12 @@
       <?rfc subcompact="yes"?>
       <t>
 	[[ to be removed by the RFC Editor before publication as an RFC ]]
+      </t>
+      <t>
+        draft-ietf-oauth-resource-indicators-04
+        <list style='symbols'>
+          <t>Editorial updates from AD review that were overlooked in -03.</t>
+        </list>
       </t>
       <t>
         draft-ietf-oauth-resource-indicators-03
