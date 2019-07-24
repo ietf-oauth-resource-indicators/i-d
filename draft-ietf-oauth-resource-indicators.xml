@@ -13,7 +13,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 
-<rfc category="std" docName="draft-ietf-oauth-resource-indicators-04" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-oauth-resource-indicators-05" ipr="trust200902">
   <front>
     <title abbrev="OAuth Resource Indicators">Resource Indicators for OAuth 2.0</title>
 
