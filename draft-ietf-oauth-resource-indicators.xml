@@ -226,7 +226,7 @@
         an error response using the error code <spanx style="verb">invalid_target</spanx> as the value of the
         <spanx style="verb">error</spanx> parameter and can provide additional
         information regarding the reasons for the error using the
-        <spanx style='verb'>error_description</spanx> and/or <spanx style='verb'>error_uri</spanx> parameters.
+        <spanx style='verb'>error_description</spanx>.
       </t>
       <t>
         An example of an authorization request where the client tells the authorization server that it wants an access token for use at
@@ -524,6 +524,12 @@
       <?rfc subcompact="yes"?>
       <t>
 	[[ to be removed by the RFC Editor before publication as an RFC ]]
+      </t>
+      <t>
+        draft-ietf-oauth-resource-indicators-05
+        <list style='symbols'>
+          <t>Remove specific mention of error_uri, which is rarely (if ever) used and seems to only confuse things for readers of extensions like this one.</t>
+        </list>
       </t>
       <t>
         draft-ietf-oauth-resource-indicators-04
