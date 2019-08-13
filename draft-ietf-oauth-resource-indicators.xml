@@ -205,7 +205,7 @@
         the requested resource is applicable to the full authorization grant.
       </t>
       <t>
-        For authorization requests sent as a JWTs, such as when using
+        For an authorization request sent as a JSON Web Token (JWT), such as when using
         <xref target="I-D.ietf-oauth-jwsreq">JWT Secured Authorization Request</xref>,
         a single <spanx style="verb">resource</spanx> parameter value
         is represented as a JSON string while multiple values are represented as an array of strings.
@@ -528,7 +528,7 @@
       <t>
         draft-ietf-oauth-resource-indicators-06
         <list style='symbols'>
-          <t></t>
+          <t>Expand JWT acronym on first use per Genart last call review.</t>
         </list>
       </t>
       <t>
