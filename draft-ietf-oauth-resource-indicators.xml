@@ -182,12 +182,12 @@
         <list style="hanging">
           <t hangText="invalid_target">
             <vspace/>
-            The requested resource is invalid, unknown, or malformed.
+            The requested resource is invalid, missing, unknown, or malformed.
           </t>
         </list>
       </t>
       <t>
-        The authorization server SHOULD audience restrict issued access tokens to the
+        The authorization server SHOULD audience-restrict issued access tokens to the
         resource(s) indicated by the <spanx style="verb">resource</spanx> parameter.
         Audience restrictions can be communicated in <xref target="RFC7519">JSON Web Tokens</xref> with the <spanx style="verb">aud</spanx> claim
         and the top-level member of the same name provides the audience restriction information in a <xref target="RFC7662">Token Introspection</xref> response.
@@ -389,7 +389,7 @@
 
     <section anchor="Security" title="Security Considerations">
       <t>
-        An access token that is audience restricted to a protected resource that obtains that
+        An access token that is audience-restricted to a protected resource that obtains that
         token legitimately cannot be used to access resources on behalf of the
         resource owner at other protected resources. The <spanx style="verb">resource</spanx>
         parameter enables a client to indicate the protected resources where the requested access
@@ -529,6 +529,7 @@
         draft-ietf-oauth-resource-indicators-06
         <list style='symbols'>
           <t>Expand JWT acronym on first use per Genart last call review.</t>
+          <t>Updates from IESG evaluation comments.</t>
         </list>
       </t>
       <t>
