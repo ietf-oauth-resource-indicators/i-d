@@ -360,7 +360,7 @@
 
   grant_type=refresh_token
   &refresh_token=4LTC8lb0acc6Oy4esc1Nk9BWC0imAwH7kic16BDC2
-  &resource=https%3A%2F%2Fcontacts.example.com%2Fapp%2F
+  &resource=https%3A%2F%2Fcontacts.example.com%2F
 ]]></artwork>
 </figure>
 
@@ -400,7 +400,8 @@
         Some servers may host user content or be multi-tenant. In order to avoid attacks that might
         confuse a client into sending an access token to a resource that is user controlled or is owned by a different tenant,
         it is important to use a specific
-        resource URI including a path component. This will cause any access token issued for
+        resource URI including any portion of the URI that identifies the
+        resource, such as a path component. This will cause any access token issued for
         accessing the user controlled resource to have an invalid audience if replayed against the legitimate
         resource API.
       </t>
