@@ -43,7 +43,7 @@
 
     <abstract>
       <t>
-        An extension to the OAuth 2.0
+        This document specifies an extension to the OAuth 2.0
         Authorization Framework defining request parameters that enable a client
         to explicitly signal to an authorization server about the identity of the protected
         resource(s) to which it is requesting access.
@@ -85,7 +85,7 @@
   OAuth scope, from Section 3.3 of <xref target="RFC6749"/>, is sometimes overloaded to convey the
   location or identity of the protected resource, however, doing so isn't always feasible or desirable. Scope is
   typically about what access is being requested rather than where that access will be redeemed
-  (e.g. <spanx style="verb">email</spanx>, <spanx style="verb">admin:org</spanx>, <spanx style="verb">user_photos</spanx>,
+  (e.g., <spanx style="verb">email</spanx>, <spanx style="verb">admin:org</spanx>, <spanx style="verb">user_photos</spanx>,
   <spanx style="verb">channels:read</spanx>, and <spanx style="verb">channels:write</spanx> are a small sample of scope
   values in use in the wild that convey only the type of access and not the location or identity).
 </t>
@@ -217,8 +217,8 @@
         Alternatively, the authorization server MAY require clients to specify the resource(s) they intend to
         access and MAY fail requests that omit the parameter with an <spanx style="verb">invalid_target</spanx> error.
         The authorization server might use this data to inform the user about the resources the client
-        is going to access on her behalf, to meet policy decision (e.g. refuse the request due to unknown resources),
-        and determine the set of resources that can be used in subsequent access token requests.
+        is going to access on her behalf, to apply policy (e.g., refuse the request due to unknown resources),
+        and to determine the set of resources that can be used in subsequent access token requests.
       </t>
       <t>
         If the authorization server fails to parse the
@@ -238,7 +238,7 @@
   GET /as/authorization.oauth2?response_type=token
      &client_id=example-client
      &state=XzZaJlcwYew1u0QBrRv_Gw
-     &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Eorg%2Fcb
+     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
      &resource=https%3A%2F%2Fapi.example.com%2Fapp%2F HTTP/1.1
   Host: authorization-server.example.com
 ]]></artwork>
@@ -256,7 +256,7 @@
   GET /as/authorization.oauth2?response_type=code
      &client_id=s6BhdRkqt3
      &state=tNwzQ87pC6llebpmac_IDeeq-mCR2wLDYljHUZUAWuI
-     &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Eorg%2Fcb
+     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
      &scope=calendar%20contacts
      &resource=https%3A%2F%2Fcal.example.com%2F
      &resource=https%3A%2F%2Fcontacts.example.com%2F HTTP/1.1
@@ -297,8 +297,8 @@
       To the extent possible, when issuing access tokens,
       the authorization server should downscope the scope value associated with an access token to
       the value the respective resource is able to process and needs to know.
-      This further improves privacy as scope values give an indication of what services the resource
-      owner uses and downscoping a token to only that which is needed for a particular service can
+      This further improves privacy as a list of scope values is an indication that the
+      resource owner uses the multiple various services listed; downscoping a token to only that which is needed for a particular service can
       limit the extent to which such information is revealed across different services.
       As specified in Section 5.1 of <xref target="RFC6749"/>, the authorization server must indicate
       the access token's effective scope to the client in the <spanx style="verb">scope</spanx>
@@ -319,7 +319,7 @@
   Content-Type: application/x-www-form-urlencoded
 
   grant_type=authorization_code
-  &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Eorg%2Fcb
+  &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
   &code=10esc29BWC2qZB0acc9v8zAv9ltc2pko105tQauZ
   &resource=https%3A%2F%2Fcal.example.com%2F]]></artwork>
         </figure>
@@ -389,25 +389,25 @@
 
     <section anchor="Security" title="Security Considerations">
       <t>
-        An access token that is audience-restricted to a protected resource that obtains that
-        token legitimately cannot be used to access resources on behalf of the
-        resource owner at other protected resources. The <spanx style="verb">resource</spanx>
+        An audience-restricted access token, legitimately presented to a
+        resource, cannot then be taken by that resource to
+        present it elsewhere for illegitimate access to other resources.
+        The <spanx style="verb">resource</spanx>
         parameter enables a client to indicate the protected resources where the requested access
         token will be used, which in turn enables the authorization server to apply the
         appropriate audience restrictions to the token.
       </t>
       <t>
-        Some servers may host user content or be multi-tenant. In order to avoid attacks that might
-        confuse a client into sending an access token to a resource that is user controlled or is owned by a different tenant,
+        Some servers may host user content or be multi-tenant. In order to avoid attacks where one tenant uses an
+        access token to illegitimately access resources owned by a different tenant,
         it is important to use a specific
         resource URI including any portion of the URI that identifies the
-        resource, such as a path component. This will cause any access token issued for
-        accessing the user controlled resource to have an invalid audience if replayed against the legitimate
-        resource API.
+        tenant, such as a path component. This will allow access tokens to be audience-restricted in a way that identifies the tenant
+        and prevent their use, due to an invalid audience, at resources owned by a different tenant.
       </t>
       <t>
         Although multiple occurrences of the <spanx style="verb">resource</spanx> parameter
-        may be included in a request, using only a single <spanx style="verb">resource</spanx> parameter
+        may be included in a token request, using only a single <spanx style="verb">resource</spanx> parameter
         is encouraged. A bearer token that has multiple intended recipients (audiences) indicating that the token
         is valid at more than one protected resource can be used by any one of those protected resources to access
         any of the other protected resources. Thus, a high degree of trust between the involved parties
@@ -510,6 +510,7 @@
         Dick Hardt,
         Phil Hunt,
         Michael Jones,
+        Benjamin Kaduk,
         Barry Leiba,
         Torsten Lodderstedt,
         Anthony Nadalin,
