@@ -56,7 +56,7 @@
     <section anchor="Introduction" title="Introduction">
 <t>
   Several years of deployment and implementation experience with the <xref target="RFC6749">OAuth 2.0 Authorization Framework</xref>
-  has uncovered a need, in some circumstances, for the client to explicitly signal to the authorization server where
+  has uncovered a need, in some circumstances such as an authorization server servicing a significant number of diverse resources, for the client to explicitly signal to the authorization server where
   it intends to use the access token it is requesting.
 </t>
 <t>
@@ -518,6 +518,7 @@
         Nat Sakimura,
         Rifaat Shekh-Yusef,
         Filip Skokan,
+        Eric Vyncke,
         and
         Hans Zandbelt.
       </t>
