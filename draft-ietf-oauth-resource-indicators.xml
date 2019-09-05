@@ -416,7 +416,7 @@
       </t>
       <t>
         Whenever feasible, the <spanx style="verb">resource</spanx> parameter
-        should correspond to the network addressable location of the protected resource. 
+        should correspond to the network addressable location of the protected resource.
         This makes it possible for the client to validate that the resource being requested controls the corresponding 
         network location, reducing the risk of malicious endpoints obtaining tokens meant for other resources.
         If the <spanx style="verb">resource</spanx> parameter contains an abstract identifier, it is the client's 
@@ -424,6 +424,15 @@
       </t>
     </section>
 
+    <section anchor="Privacy" title="Privacy Considerations">
+      <t>
+        In typical OAuth deployments the authorization sever is in a position to observe and track a significant
+        amount of user and client behavior. It is largely just inherent to the nature of OAuth and this document
+        does little to affect that. In some cases, however, such as when access token introspection is not being
+        used, use of the resource parameter defined herein may allow for tracking behavior at a somewhat more
+        granular and specific level than would otherwise be possible in its absence.
+      </t>
+    </section>
 
     <section anchor="IANA" title="IANA Considerations">
       <section title="OAuth Parameters Registration">
