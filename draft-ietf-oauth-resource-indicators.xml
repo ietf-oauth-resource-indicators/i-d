@@ -13,7 +13,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 
-<rfc category="std" docName="draft-ietf-oauth-resource-indicators-06" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-oauth-resource-indicators-07" ipr="trust200902">
   <front>
     <title abbrev="OAuth Resource Indicators">Resource Indicators for OAuth 2.0</title>
 
@@ -139,9 +139,11 @@
         <vspace/>
         Indicates the target service or
         resource to which access is being requested.
-        Its value MUST be an
-        absolute URI, as specified by Section 4.3 of <xref target="RFC3986"/>,
-        which MAY include a query component but MUST NOT include a fragment component.
+        Its value MUST be an absolute URI, as specified by
+        Section 4.3 of <xref target="RFC3986"/>.  The URI MUST NOT include
+        a fragment component.  It SHOULD NOT include a query
+        component, but it is recognized that there are cases that
+        make a query component useful.
         The <spanx style="verb">resource</spanx> parameter URI value is an identifier representing the identity of the resource,
         which MAY be a locator that corresponds to a network addressable location where the target resource is hosted.
         Multiple
@@ -538,6 +540,12 @@
       <?rfc subcompact="yes"?>
       <t>
 	[[ to be removed by the RFC Editor before publication as an RFC ]]
+      </t>
+      <t>
+        draft-ietf-oauth-resource-indicators-07
+        <list style='symbols'>
+          <t>One more update from IESG evaluation comments (https://mailarchive.ietf.org/arch/msg/oauth/RS0UZSsguQurHl4P18Zo77BzZnU).</t>
+        </list>
       </t>
       <t>
         draft-ietf-oauth-resource-indicators-06
