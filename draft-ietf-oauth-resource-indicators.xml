@@ -390,8 +390,8 @@
     <section anchor="Security" title="Security Considerations">
       <t>
         An audience-restricted access token, legitimately presented to a
-        resource, cannot then be taken by that resource to
-        present it elsewhere for illegitimate access to other resources.
+        resource, cannot then be taken by that resource and presented elsewhere
+        for illegitimate access to other resources.
         The <spanx style="verb">resource</spanx>
         parameter enables a client to indicate the protected resources where the requested access
         token will be used, which in turn enables the authorization server to apply the
